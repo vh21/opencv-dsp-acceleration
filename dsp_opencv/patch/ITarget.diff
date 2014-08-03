@@ -1,0 +1,13 @@
+diff --git a/packages/gnu/targets/ITarget.xs b/packages/gnu/targets/ITarget.xs
+index 3b22d0a..4e2503d 100644
+--- a/packages/gnu/targets/ITarget.xs
++++ b/packages/gnu/targets/ITarget.xs
+@@ -286,7 +286,7 @@ function _initVers(target)
+ 
+     function askLd(target)
+     {
+-        var ldCmd = target.rootDir + "/" + target.GCCTARG + "/bin/ld";
++        var ldCmd = target.rootDir + "bin/armv7a-vfp-neon-angstrom-linux-gnueabi/" + target.GCCTARG + "-ld";
+         /* If the ld executable cannot be found, and the prefix is not used,
+          * it's probably a misspelled directory path.
+          */
