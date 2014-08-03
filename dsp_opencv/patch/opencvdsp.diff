@@ -1,7 +1,7 @@
-Index: opencv/modules/core/src/alloc.cpp
-===================================================================
---- opencv/modules/core/src/alloc.cpp	(revision 1)
-+++ opencv/modules/core/src/alloc.cpp	(revision 3)
+diff --git a/opencv/modules/core/src/alloc.cpp b/opencv/modules/core/src/alloc.cpp
+index 1944ed1..09e3fe6 100644
+--- a/opencv/modules/core/src/alloc.cpp
++++ b/opencv/modules/core/src/alloc.cpp
 @@ -41,9 +41,12 @@
  //M*/
  
@@ -15,46 +15,22 @@ Index: opencv/modules/core/src/alloc.cpp
  namespace cv
  {
  
-@@ -59,22 +62,39 @@
+@@ -61,7 +64,8 @@ void deleteThreadAllocData() {}
  
  void* fastMalloc( size_t size )
  {
 -    uchar* udata = (uchar*)malloc(size + sizeof(void*) + CV_MALLOC_ALIGN);
-+/*
-+    uchar* udata = (uchar*)malloc(size + sizeof(void*) + CV_MALLOC_ALIGN); 
++    CMEM_init();
++    uchar* udata = (uchar*)CMEM_alloc(size + sizeof(void*) + CV_MALLOC_ALIGN, &CMEM_DEFAULT_PARAMS);
      if(!udata)
          return OutOfMemoryError(size);
      uchar** adata = alignPtr((uchar**)udata + 1, CV_MALLOC_ALIGN);
-     adata[-1] = udata;
-     return adata;
-+*/  
-+    CMEM_init();
-+    uchar *udata = (uchar*)CMEM_alloc(size + sizeof(void*) + CV_MALLOC_ALIGN, &CMEM_DEFAULT_PARAMS);
-+    if(!udata)
-+        return OutOfMemoryError(size);
-+    uchar** adata = alignPtr((uchar**)udata + 1, CV_MALLOC_ALIGN);
-+    adata[-1] = udata;
-+    return adata;
-+ 
- }
-     
--void fastFree(void* ptr)
-+void fastFree(void* ptr) 
- {
--    if(ptr)
-+   if(ptr)
-     {
-+/*
+@@ -76,7 +80,7 @@ void fastFree(void* ptr)
          uchar* udata = ((uchar**)ptr)[-1];
          CV_DbgAssert(udata < (uchar*)ptr &&
-                ((uchar*)ptr - udata) <= (ptrdiff_t)(sizeof(void*)+CV_MALLOC_ALIGN)); 
-         free(udata);
-+*/
-+	uchar* udata = ((uchar**)ptr)[-1];
-+        CV_DbgAssert(udata < (uchar*)ptr &&
-+               ((uchar*)ptr - udata) <= (ptrdiff_t)(sizeof(void*)+CV_MALLOC_ALIGN)); 
+                ((uchar*)ptr - udata) <= (ptrdiff_t)(sizeof(void*)+CV_MALLOC_ALIGN));
+-        free(udata);
 +        CMEM_free(udata, &CMEM_DEFAULT_PARAMS);
-+	
      }
  }
  
