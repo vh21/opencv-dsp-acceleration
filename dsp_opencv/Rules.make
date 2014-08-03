@@ -1,13 +1,17 @@
 #define platform used
 PLATFORM = omap3530
 
+# define OE_BASE
+OE_BASE = /home/villerhsiao/projects/ti-beagle/setup-scripts
+
 #define root path for all the tools
-ROOTPATH = /media/disk/openembedded/build/tmp-angstrom_2008_1/sysroots/beagleboard-angstrom-linux-gnueabi
+ROOTPATH = $(OE_BASE)/build/tmp-angstrom_v2012_12-eglibc/sysroots/beagleboard
 
 #define path for your cross-compiler and tag for your cross-compiler. Verify if this path is correct
 #for you or not and edit accordingly. For all Angstrom Linux distrubuiton, the name of gcc corss-compiler
 #begin with arm-angstrom-linux-gnueabi-
-CROSS_COMPILE = $(ROOTPATH)/../i686-linux/usr/bin/arm-angstrom-linux-gnueabi-
+CROSS_COMPILE = $(ROOTPATH)/../x86_64-linux/usr/bin/armv7a-vfp-neon-angstrom-linux-gnueabi/arm-angstrom-linux-gnueabi-
+#CROSS_COMPILE =/home/STools/ARM/armv7a-vfp-neon-angstrom-linux-gnueabi/arm-angstrom-linux-gnueabi-
 
 #define path to code generation tools
 CODEGEN_INSTALL_DIR = $(ROOTPATH)/usr/share/ti/ti-cgt6x-tree
@@ -43,7 +47,7 @@ BIOSUTILS_INSTALL_DIR = $(ROOTPATH)/usr/share/ti/ti-biosutils-tree
 #it will be <PATH_YOU_CHECKED_OUT_THIS_PROJECT>/opencv-dsp-acceleration/dsp_opencv/beagle/c6accel_1_00_00_04_async.
 #This is generally used for designing new codec.
 #You may or may not specify this.
-CODEC_INSTALL_DIR = /home/jars/opencv-dsp-acceleration/dsp_opencv/beagle/c6accel_1_00_00_04_async
+CODEC_INSTALL_DIR = $(OE_BASE)/opencv-dsp-acceleration/dsp_opencv/beagle/c6accel_1_00_00_04_async
 
 #define path to LPM install directory
 LPM_INSTALL_DIR = $(ROOTPATH)/usr/share/ti/ti-local-power-manager-tree
@@ -52,5 +56,5 @@ LPM_INSTALL_DIR = $(ROOTPATH)/usr/share/ti/ti-local-power-manager-tree
 EDMA3_LLD_ROOT = $(ROOTPATH)/usr/share/ti/ti-edma3lld-tree
 
 #define path to your install directory. This is where all your executables and test files will be copied
-EXEC_DIR = /home/jars/beagleboard/dsplink
+EXEC_DIR = $(OE_BASE)/opencv-dsp-acceleration/install/beagleboard/dsplink
 
