@@ -76,7 +76,7 @@ all: $(if $(wildcard $(XDC_CFGFILE)), $(XDC_EXEC))
 $(XDC_EXEC): $(LINUX_OBJFILES) $(XDC_LFILE) $(AL_LIBS)
 	@echo 
 	@echo Linking $@ from $^..
-	$(ARM_LINK.c) -Wl,-Map,$(MAP) -o $@ $^
+	$(ARM_LINK.c) -Wl,-Map,$(MAP) -o $@ -lc  $(LINUX_OBJFILES) $(AL_LIBS) -Wl,-T,$(XDC_LFILE)
 
 $(LINUX_OBJFILES): %.$(PLATFORM_SHORT).o$(APP_EXT): %.c $(HEADERS) $(XDC_CFLAGS)
 	@echo Compiling $@ from $<..

@@ -84,7 +84,7 @@ install_$(TARGET):
 $(TARGET):	$(OBJFILES) $(C6ACCEL_LIB) $(XDC_LFILE)
 	@echo
 	@echo Linking $@ from $^..
-	$(LINK.c) -o $@ $^ 
+	$(LINK.c) -o $@ $(OBJFILES) $(C6ACCEL_LIB) -Wl,-T,$(XDC_LFILE)
 
 $(OBJFILES):	%.o: %.c $(HEADERS) $(XDC_CFLAGS)
 	@echo Compiling $@ from $<..
